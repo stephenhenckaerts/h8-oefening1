@@ -1,0 +1,8 @@
+<div>
+    <h3>{{hero.name}} {{hero.difficulity}}</h3>
+    <p>{{hero.class}}</p>
+    <ul>
+        <li>Abilities</li>
+        <li *ngFor="let ability of hero.abilities">{{ability}}</li>
+    </ul>
+</div>

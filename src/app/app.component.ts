@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HeroService } from './services/hero.service';
+import { Hero } from './models/hero.model';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'h8-oefening1';
+  heroes: Hero[];
+
+  constructor(private heroService: HeroService){
+  }
+
+  ngOnInit(){
+    this.fetchHeroesList();
+  }
+
+  fetchHeroesList(){
+    this.heroService.getHeroList().subscribe(data =>{
+      this.heroes = data;
+    });
+  }
 }

@@ -1,0 +1,11 @@
+<form [formGroup]="searchForm">
+    <h2>Filter heroes</h2>
+
+    <label for="filterName">Name:</label>
+    <input name="filterName" id="filterName" type="text" formControlName="filterName" placeholder="filter name">
+
+    <label for="rating">Rating:</label>
+    <select name="rating" id="rating" formControlName="rating" [(ngModel)]="selectedRating">
+        <option *ngFor="let rating of ratings" value="{{rating}}">{{rating}}</option>
+    </select>
+</form>
