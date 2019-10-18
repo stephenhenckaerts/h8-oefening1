@@ -12,10 +12,23 @@ export class HeroService{
 
     constructor(private http: HttpClient){ }
 
-    getHeroList():Observable<Hero[]>{
+    getHeroList(filteredName: string, selectedRating: string):Observable<Hero[]>{
         return this.http.get(BASEAPIURL).pipe(
-            map(this.parseHeroData)
+            map(this.parseHeroData),
+            map((heroes: Hero[]) => {
+                return this.filterHeroes(heroes, filteredName, selectedRating);
+            })
         );
+    }
+
+    filterHeroes(heroes: Hero[], filteredName: string, selectedRating: string): Hero[] {
+        console.debug(filteredName + ' --- ' + selectedRating)
+        if(selectedRating == 'All'){
+            return heroes.filter(hero => hero.name.toLocaleLowerCase().includes(filteredName.toLocaleLowerCase()));
+        }
+        else{
+            return heroes.filter(hero => hero.name.toLocaleLowerCase().includes(filteredName.toLocaleLowerCase()) && hero.difficulity == parseInt(selectedRating));
+        }
     }
 
     parseHeroData(rawHeros: any[]): Hero[] {
@@ -30,13 +43,6 @@ export class HeroService{
                 hero.name,
                 key
             );
-        });
-    }
-
-    parseAbilitiesData(rawAbilities: any[]): string[]{
-        return Object.keys(rawAbilities).map(key => {
-            let ability = rawAbilities[key];
-            return '' + ability;
         });
     }
 }

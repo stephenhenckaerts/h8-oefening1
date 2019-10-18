@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   ratings = ['All', '1', '2', '3'];
+  @Output() onName: EventEmitter<string> = new EventEmitter();
+  @Output() onRating: EventEmitter<string> = new EventEmitter();
   selectedRating: string;
+  filteredName: string;
 
   constructor() { }
 
@@ -22,4 +25,11 @@ export class SearchComponent implements OnInit {
     this.selectedRating = this.ratings[0];
   }
 
+  onKey(event: any) {
+    this.onName.emit(this.filteredName);
+  }
+
+  public onChange(event): void { 
+    this.onRating.emit(this.selectedRating);
+  }
 }

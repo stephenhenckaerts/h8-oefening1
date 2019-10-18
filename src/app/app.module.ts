@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { HeroComponent } from './hero/hero.component';
 import { SearchComponent } from './search/search.component';
 import { HeroService } from "./services/hero.service";
+import { StarsPipe } from './pipes/stars.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroComponent,
-    SearchComponent
+    SearchComponent,
+    StarsPipe
   ],
   imports: [
     BrowserModule,
